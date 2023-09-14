@@ -1,0 +1,43 @@
+
+:root {
+  --default-font-size: 20px;
+  --marquee-font-size: 32px;
+}
+
+body {
+  margin: 0;
+  padding: 16px 8px;
+  font-size: var(--default-font-size);
+}
+
+.marquee-container {
+  position: relative;
+  height: var(--marquee-font-size);
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.marquee {
+  position: absolute;
+  display: inline-block;
+  left: 100%;
+  font-size: var(--marquee-font-size);
+  line-height: var(--marquee-font-size);
+  white-space: nowrap;
+  animation: marquee 10s linear infinite;
+}
+
+@keyframes marquee {
+  0% {
+    left: 100%;
+    transform: translateX(0);
+  }
+  100% {
+    left: 0;
+    transform: translateX(-100%);
+  }
+}
+
+button {
+  font-size: var(--default-font-size);
+}

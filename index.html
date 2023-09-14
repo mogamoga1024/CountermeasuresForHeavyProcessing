@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>重い処理</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="marquee-container">
+    <div class="marquee"></div>
+  </div>
+  <div>
+    <span id="message" style="display: none;"></span>
+    <button id="clear-btn" style="display: none;">クリア</button>
+  </div>
+  <button id="btn1">普通に計算（固まる）</button>
+  <button id="btn2">WebWorkerで計算（無問題）</button>
+  <button id="btn3">setTimeoutで計算（固まる）</button>
+  <button id="btn4">Promiseで計算（固まる）</button>
+
+  <script src="main.js"></script>
+</body>
+</html>
