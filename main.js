@@ -2,10 +2,8 @@
 const elMarquee = document.querySelector(".marquee");
 const elMessage = document.querySelector("#message");
 const elClearBtn = document.querySelector("#clear-btn");
-const elBtn1 = document.querySelector("#btn1");
-const elBtn2 = document.querySelector("#btn2");
-const elBtn3 = document.querySelector("#btn3");
-const elBtn4 = document.querySelector("#btn4");
+const elCalcBtnList = document.querySelectorAll(".calc-btn");
+const [elBtn1, elBtn2, elBtn3, elBtn4] = elCalcBtnList;
 
 const max = 9999999999;
 elMarquee.innerText = `1から${max}までの和を求めるよ～`;
@@ -30,18 +28,12 @@ const canClick = (function() {
         if (val) {
             clearTimeout(timer);
             timer = setTimeout(() => {
-                elBtn1.disabled = !val;
-                elBtn2.disabled = !val;
-                elBtn3.disabled = !val;
-                elBtn4.disabled = !val;
+                elCalcBtnList.forEach(b => b.disabled = !val);
                 _canClick = val;
             }, 1000);
         }
         else {
-            elBtn1.disabled = !val;
-            elBtn2.disabled = !val;
-            elBtn3.disabled = !val;
-            elBtn4.disabled = !val;
+            elCalcBtnList.forEach(b => b.disabled = !val);
             _canClick = val;
         }
     }
@@ -50,6 +42,7 @@ const canClick = (function() {
 // elClearBtn
 
 elClearBtn.onclick = function() {
+    if (!canClick()) return;
     elMessage.style.display = "none";
     elClearBtn.style.display = "none";
 };
