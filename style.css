@@ -24,7 +24,7 @@ body {
   font-size: var(--marquee-font-size);
   line-height: var(--marquee-font-size);
   white-space: nowrap;
-  animation: marquee 10s linear infinite;
+  animation: marquee 5s linear infinite;
 }
 
 @keyframes marquee {
@@ -32,9 +32,15 @@ body {
     left: 100%;
     transform: translateX(0);
   }
+  99% {
+    left: 0;
+    transform: translateX(-100%);
+    line-height: var(--marquee-font-size);
+  }
   100% {
     left: 0;
     transform: translateX(-100%);
+    line-height: 0;
   }
 }
 
