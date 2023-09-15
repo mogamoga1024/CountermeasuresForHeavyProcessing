@@ -31,16 +31,17 @@ body {
   0% {
     left: 100%;
     transform: translateX(0);
+    color: black;
   }
-  99% {
+  90% {
     left: 0;
     transform: translateX(-100%);
-    line-height: var(--marquee-font-size);
+    color: black;
   }
   100% {
     left: 0;
     transform: translateX(-100%);
-    line-height: 0;
+    color: transparent;
   }
 }
 
