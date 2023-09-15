@@ -20,6 +20,33 @@ function calc(max) {
     elMessage.innerText = `答えは「${sum}」`;
 }
 
+const canClick = (function() {
+    let _canClick = true;
+    let timer = undefined;
+    return function(val = undefined) {
+        if (val === undefined) {
+            return _canClick;
+        }
+        if (val) {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                elBtn1.disabled = !val;
+                elBtn2.disabled = !val;
+                elBtn3.disabled = !val;
+                elBtn4.disabled = !val;
+                _canClick = val;
+            }, 1000);
+        }
+        else {
+            elBtn1.disabled = !val;
+            elBtn2.disabled = !val;
+            elBtn3.disabled = !val;
+            elBtn4.disabled = !val;
+            _canClick = val;
+        }
+    }
+})();
+
 // elClearBtn
 
 elClearBtn.onclick = function() {
@@ -30,7 +57,10 @@ elClearBtn.onclick = function() {
 // elBtn1
 
 elBtn1.onclick = function() {
+    if (!canClick()) return;
+    canClick(false);
     calc(max);
+    canClick(true);
 };
 
 // elBtn2
@@ -38,24 +68,31 @@ elBtn1.onclick = function() {
 const worker = new Worker("worker.js");
 worker.onmessage = function(e) {
     elMessage.style.display = "";
+    elClearBtn.style.display = "none";
     if (e.data.progressRate < 100) {
         elMessage.innerText = `計算中… ${e.data.progressRate}%`;
     }
     else {
         elMessage.innerText = `答えは「${e.data.sum}」`;
         elClearBtn.style.display = "";
+        canClick(true);
     }
 };
 
 elBtn2.onclick = function() {
+    if (!canClick()) return;
+    canClick(false);
     worker.postMessage(max);
 };
 
 // elBtn3
 
 elBtn3.onclick = function() {
+    if (!canClick()) return;
+    canClick(false);
     setTimeout(() => {
         calc(max);
+        canClick(true);
     }, 1);
 };
 
@@ -65,9 +102,12 @@ function asyncCalc(max) {
     return new Promise(resolve => {
         calc(max);
         resolve();
-    })
+        canClick(true);
+    });
 }
 
 elBtn4.onclick = function() {
+    if (!canClick()) return;
+    canClick(false);
     asyncCalc(max);
 };
