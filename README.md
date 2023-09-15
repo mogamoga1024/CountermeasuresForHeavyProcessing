@@ -1,0 +1,2 @@
+# CountermeasuresForHeavyProcessing
+重い処理の対策サンプル（JavaScript）
