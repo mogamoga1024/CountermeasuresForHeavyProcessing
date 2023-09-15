@@ -102,21 +102,25 @@ const canClick = (function() {
     }
 })();
 
-function createWorker() {
-    const worker = new Worker("worker.js");
-    worker.onmessage = function(e) {
-        if (e.data.progressRate < 100) {
-            elMessage.innerText = `計算中… ${e.data.progressRate}%`;
-        }
-        else {
-            elMessage.innerText = `答えは「${e.data.sum}」`;
-            elClearBtn.style.display = "";
-            elCancelBtn.style.display = "none";
-            canClick(true);
-        }
+const createWorker = (function() {
+    let worker = null;
+    return function() {
+        worker?.terminate();
+        worker = new Worker("worker.js");
+        worker.onmessage = function(e) {
+            if (e.data.progressRate < 100) {
+                elMessage.innerText = `計算中… ${e.data.progressRate}%`;
+            }
+            else {
+                elMessage.innerText = `答えは「${e.data.sum}」`;
+                elClearBtn.style.display = "";
+                elCancelBtn.style.display = "none";
+                canClick(true);
+            }
+        };
+        return worker;
     };
-    return worker;
-};
+})();
 
 function asyncCalc(max) {
     return new Promise(resolve => {
